@@ -1,0 +1,19 @@
+{# Renders one normalized analysis dict as `analysis`. #}
+{% if analysis.match_score is not none %}
+<div class="score">
+    <span class="score-label">Role match</span>
+    <progress class="score-bar" max="100" value="{{ analysis.match_score }}">{{ analysis.match_score }}%</progress>
+    <span class="score-value">{{ analysis.match_score }}%</span>
+</div>
+{% endif %}
+{% if analysis.summary %}<p class="summary">{{ analysis.summary }}</p>{% endif %}
+
+{% for title, items in [("Skills", analysis.skills), ("Missing Skills", analysis.missing_skills),
+                        ("Roadmap", analysis.roadmap), ("Interview Questions", analysis.interview_questions)] %}
+    <h3>{{ title }}</h3>
+    {% if items %}
+        <ul>{% for item in items %}<li>{{ item }}</li>{% endfor %}</ul>
+    {% else %}
+        <p class="muted">Nothing to show here.</p>
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - AI Career Copilot{% endblock %}
+{% block content %}
+
+<h2>Welcome, {{ current_email }}</h2>
+
+<div class="card">
+    <h3>Resume Analyser</h3>
+
+    {% if error %}<div class="alert alert-error">{{ error }}</div>{% endif %}
+
+    <form method="POST" enctype="multipart/form-data" data-loading-form>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+        <textarea name="resume" placeholder="Paste your resume here (or upload a file below)">{{ form.get('resume', '') }}</textarea>
+
+        <p>OR upload a PDF/DOCX file (a file takes priority over pasted text):</p>
+        <input type="file" name="file" accept=".pdf,.docx">
+
+        <input type="text" name="role" maxlength="100" required
+               value="{{ form.get('role', '') }}"
+               placeholder="What do you want to become? (e.g. Python Developer)">
+
+        <button type="submit" data-loading-text="Analysing... this can take a few seconds">Analyze</button>
+    </form>
+</div>
+
+{% if analysis %}
+<div class="card">
+    <h3>Analysis for: {{ target_role }}</h3>
+    {% if warning %}<div class="alert alert-warning">{{ warning }}</div>{% endif %}
+    {% include "_analysis.html" %}
+</div>
+{% endif %}
+
+{% endblock %}

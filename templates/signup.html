@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Sign up - AI Career Copilot{% endblock %}
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h2>Create Account</h2>
+        <p class="sub-text">Start your AI Career Journey</p>
+
+        {% if error %}<div class="alert alert-error">{{ error }}</div>{% endif %}
+
+        <form method="POST" data-loading-form>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="email" name="email" placeholder="Enter your email"
+                   value="{{ email or '' }}" autocomplete="email" required>
+            <input type="password" name="password" placeholder="Create a password"
+                   minlength="8" autocomplete="new-password" required>
+            <p class="sub-text">Use at least 8 characters</p>
+            <button type="submit">Sign up</button>
+        </form>
+
+        <p class="switch-auth">Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+    </div>
+</div>
+{% endblock %}

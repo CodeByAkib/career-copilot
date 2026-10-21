@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}History - AI Career Copilot{% endblock %}
+{% block content %}
+
+<h2>Your History</h2>
+
+{% for r in reports %}
+<div class="card">
+    <p class="meta">
+        <strong>{{ r.target_role or "Unknown role" }}</strong>
+        {% if r.created %}<span class="muted"> &middot; {{ r.created }}</span>{% endif %}
+    </p>
+    <p><strong>Resume preview:</strong></p>
+    <p class="muted">{{ r.resume_preview }}</p>
+    <hr>
+    {% set analysis = r.analysis %}
+    {% include "_analysis.html" %}
+</div>
+{% else %}
+<div class="card">
+    <p>No analyses yet. <a href="{{ url_for('dashboard') }}">Analyse your first resume</a>.</p>
+</div>
+{% endfor %}
+
+{% endblock %}

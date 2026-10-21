@@ -1,0 +1,8 @@
+Flask>=3.0,<4
+pymongo[srv]>=4.6,<5
+python-dotenv>=1.0
+Werkzeug>=3.0
+pypdf>=5.0
+python-docx>=1.1
+google-genai>=1.0
+certifi
